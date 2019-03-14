@@ -34,8 +34,8 @@ class tasklist(APIView):
             if request.POST.get('mode')=='3':
                 c = task.objects.get(id=request.POST.get('id'))
                 c.name = request.POST.get('name', '')
-                c.mark = request.POST.get('mark')
-                # c.date = request.POST.get('closed_date', '')
+                c.mark_complete = request.POST.get('mark')
+                c.date = request.POST.get('date', '')
                 c.description = request.POST.get('description', '')
                 print("mode 3")
                 c.save()
