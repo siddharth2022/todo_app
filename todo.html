@@ -104,12 +104,12 @@ if(data[i].mark_complete == '1')
 status="Complete";
  else 
  status="Pending";
-string+=`<div class="card blue-grey darken-1"><div class="card-content white-text"><span class="card-title">Name:-  ${data[i].task_name}</span><span class="card-title">date:- ${data[i].closed_date}</span>
-          <p>Deatil :- ${data[i].description}</p><p>status :- ${status}
+string+=`<div class="card blue-grey darken-1"><div class="card-content white-text"><span class="card-title">Name:- <input style="color:yellow" type="text" value="${data[i].task_name}" id="t_name${data[i].id}" /></span><span class="card-title">date:- ${data[i].closed_date}</span>
+          <p>Deatil :- <textarea id="t_detail${data[i].id}" style="color:yellow">${data[i].description}</textarea></p><p>status :- ${status}
         </div>
         <div class="card-action">
           <a class="waves-effect waves-light btn" onclick="update_apt(${data[i].id},'${data[i].task_name}',1,'${data[i].description}','${data[i].closed_date}')">Complete</a>
-		  <a class="waves-effect waves-light btn" onclick="update_apt(${data[i].id},${data[i].task_name},${data[i].mark_complete},${data[i].description},${data[i].closed_date})">Update</a>
+		  <button class="waves-effect waves-light btn" onclick="update_apt(${data[i].id},'${data[i].task_name}',${data[i].mark_complete},'${data[i].description}','${data[i].closed_date}')">Update</button>
 		  <a class="waves-effect waves-light btn" onclick="delete_apt(${data[i].id})">Delete</a>
         </div>
       </div>`;
@@ -136,9 +136,9 @@ function update_apt(id,task_name,mark,des,date1)
 {
 	$.post("http://localhost:8000/task/",
   {
-    name: task_name,
+    name: document.getElementById("t_name"+id).value,
 	mark:mark,
-	description:des,
+	description:document.getElementById("t_detail"+id).value,
 	date:date1,
     id: id,
 	mode:3
@@ -151,7 +151,7 @@ function update_apt(id,task_name,mark,des,date1)
 }
 function do_refresh()
 {
-get_data();
+location.reload();
 }
   </script>
 </body>
